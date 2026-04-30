@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabiMarket - Welcome Back</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary:#FF6F43; --bg:#FBF9F6; --white:#FFFFFF; --text-dark:#1A1A1A; --text-gray:#7A7A7A; --border:#EFEFEF; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+        body { background-color:var(--bg); color:var(--text-dark); display:flex; justify-content:center; align-items:center; min-height:100vh; }
+        .login-card { background-color:var(--white); width:90%; max-width:450px; padding:40px; border-radius:20px; box-shadow:0 15px 35px rgba(0,0,0,0.03); text-align:center; }
+        .logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:25px; }
+        .logo-icon { background:#4CAF50; color:white; width:32px; height:32px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:18px; font-weight:bold; }
+        .logo-text { font-size:20px; font-weight:800; color:#1E3A34; }
+        .welcome-text h1 { font-size:28px; font-weight:800; margin-bottom:10px; color:var(--text-dark); }
+        .welcome-text p { font-size:14px; color:var(--text-gray); margin-bottom:30px; }
+        .form-group { margin-bottom:20px; text-align:left; }
+        .label-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+        label { font-size:13px; font-weight:600; color:#444; }
+        .forgot-password { font-size:11px; color:var(--primary); font-weight:600; text-decoration:none; }
+        input { width:100%; padding:14px; border:1px solid var(--border); border-radius:10px; background-color:#F9F9F9; font-size:14px; color:var(--text-dark); transition:0.3s; }
+        input:focus { outline:none; border-color:var(--primary); background-color:white; }
+        .btn-primary { width:100%; padding:14px; background-color:var(--primary); color:white; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; transition:0.3s; margin-bottom:20px; }
+        .btn-primary:hover { background-color:#E65A2B; }
+        .divider { position:relative; text-align:center; margin:25px 0; color:var(--text-gray); font-size:12px; font-weight:500; }
+        .divider::before { content:""; position:absolute; top:50%; left:0; width:100%; height:1px; background-color:var(--border); z-index:1; }
+        .divider span { background-color:var(--white); padding:0 15px; position:relative; z-index:2; }
+        .social-buttons { display:flex; gap:15px; margin-bottom:30px; }
+        .btn-social { flex:1; padding:12px; background-color:transparent; border:1px solid var(--border); border-radius:10px; display:flex; justify-content:center; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--text-dark); cursor:pointer; text-decoration:none; transition:0.3s; }
+        .btn-social:hover { background-color:#F9F9F9; }
+        .btn-social i { font-size:18px; }
+        .footer-text { font-size:13px; color:var(--text-dark); font-weight:500; }
+        .footer-text a { color:var(--primary); text-decoration:none; font-weight:700; }
+        .error-box { text-align:left; background:#ffefef; color:#b12020; border:1px solid #ffc9c9; padding:10px; border-radius:10px; margin-bottom:14px; font-size:12px; }
+        .success-box { text-align:left; background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; padding:10px; border-radius:10px; margin-bottom:14px; font-size:12px; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo"><div class="logo-icon">B</div><span class="logo-text">BabiMarket</span></div>
+        <div class="welcome-text"><h1>Welcome Back</h1><p>Sign in to continue shopping</p></div>
+        @if(request()->boolean('wishlist'))
+            <div class="success-box" style="background:#E3F2FD;border-color:#90CAF9;color:#1565C0;">Please sign in to save items to your wishlist.</div>
+        @endif
+        @if(session('success'))
+            <div class="success-box">{{ session('success') }}</div>
+        @endif
+        @if($errors->any())
+            <div class="error-box">
+                @foreach($errors->all() as $error)<div>{{ $error }}</div>@endforeach
+            </div>
+        @endif
+        <form action="{{ route('login.post') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <div class="label-row"><label for="email">Email Address</label></div>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <div class="label-row"><label for="password">Password</label><a href="{{ route('password.forgot') }}" class="forgot-password">Forgot password?</a></div>
+                <input type="password" id="password" name="password" placeholder="........" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+        <div class="divider"><span>or continue with</span></div>
+        <div class="social-buttons">
+            <a href="#" class="btn-social"><i class="fa-brands fa-google" style="color:#DB4437;"></i>Google</a>
+            <a href="#" class="btn-social"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i>Facebook</a>
+        </div>
+        <div class="footer-text">Don't have an account? <a href="{{ route('register') }}">Sign Up</a></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BabiMarket - Wishlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #FF6F43; --bg-color: #FBF9F6; --text-dark: #1A1A1A; --border-color: #EFEFEF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); padding: 40px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        
+        .wishlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .product-card { background: #fff; border-radius: 16px; padding: 15px; border: 1px solid var(--border-color); position: relative; transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .remove-btn { position: absolute; top: 25px; right: 25px; background: rgba(255,255,255,0.9); border: none; width: 30px; height: 30px; border-radius: 50%; color: #FF5252; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+        .product-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+        .product-price { color: var(--primary); font-weight: 700; font-size: 18px; margin-bottom: 15px; }
+        .add-cart-btn { width: 100%; padding: 10px; background: var(--text-dark); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .add-cart-btn:hover { background: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header-title"><i class="fa-solid fa-heart" style="color: #FF5252;"></i> My Wishlist</h1>
+        <div class="wishlist-grid">
+            <div class="product-card">
+                <button class="remove-btn"><i class="fa-solid fa-xmark"></i></button>
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=300&auto=format&fit=crop" class="product-img">
+                <h3 class="product-title">Organic Baby Onesie</h3>
+                <div class="product-price">$24.99</div>
+                <button class="add-cart-btn"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <button class="remove-btn"><i class="fa-solid fa-xmark"></i></button>
+                <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?q=80&w=300&auto=format&fit=crop" class="product-img">
+                <h3 class="product-title">Wooden Stacker Toy</h3>
+                <div class="product-price">$18.50</div>
+                <button class="add-cart-btn"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

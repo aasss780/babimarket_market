@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabiMarket | الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #FF6F43; /* لون البرتقالي الأساسي */
+            --bg-color: #FBF9F6; /* لون الخلفية الكريمي */
+            --text-dark: #1A1A1A; /* لون النصوص الداكنة */
+            --text-gray: #7A7A7A; /* لون النصوص الرمادية */
+            --white: #FFFFFF;
+            --border-color: #EFEFEF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        a { text-decoration: none; transition: 0.3s; }
+        img { max-width: 100%; border-radius: 20px; }
+
+        /* --- 1. Navbar --- */
+        .navbar { background: var(--white); padding: 20px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: #1E3A34; }
+        .logo-icon { background: #4CAF50; color: white; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 8px; font-size: 16px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-dark); font-size: 15px; font-weight: 500; }
+        .nav-links a.active { color: var(--primary); font-weight: 700; }
+        .nav-icons { display: flex; gap: 25px; font-size: 18px; color: #333; align-items: center; }
+        .cart-icon { position: relative; cursor: pointer; }
+        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+
+        /* --- Global Section Styles --- */
+        .section-padding { padding: 80px 0; }
+        .sub-title { color: var(--text-gray); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        .main-title { font-size: 32px; font-weight: 800; color: var(--text-dark); margin-bottom: 40px; }
+
+        /* --- 2. Hero Section --- */
+        .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0; }
+        .hero-parents { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .avatars { display: flex; }
+        .avatars img { width: 35px; height: 35px; border-radius: 50%; border: 3px solid var(--bg-color); margin-left: -12px; object-fit: cover; }
+        .avatars img:first-child { margin-left: 0; }
+        .parents-text { font-size: 14px; font-weight: 600; color: var(--text-gray); }
+        .hero h1 { font-size: 55px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--text-gray); font-size: 16px; margin-bottom: 40px; max-width: 480px; }
+        
+        .hero-btns { display: flex; gap: 15px; margin-bottom: 50px; }
+        .btn { padding: 16px 32px; border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: none; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-outline { background: transparent; border: 2px solid #E0DCD3; color: var(--text-dark); }
+        
+        .hero-stats { display: flex; gap: 40px; border-top: 1px solid #E0DCD3; padding-top: 30px; }
+        .stat h3 { font-size: 26px; font-weight: 800; color: var(--text-dark); }
+        .stat span { font-size: 13px; color: var(--text-gray); font-weight: 500; }
+        .hero-img { width: 100%; height: 550px; object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+        /* --- 3. Categories --- */
+        .categories-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+        .cat-card { background: var(--white); padding: 30px 15px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+        .cat-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .cat-icon { font-size: 32px; margin-bottom: 15px; display: block; }
+        .cat-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .cat-card p { font-size: 12px; color: var(--text-gray); margin: 0; }
+
+        /* --- 4. Products --- */
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+        .view-all { color: var(--primary); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .product-card { background: var(--white); padding: 15px; border-radius: 25px; position: relative; transition: 0.3s; }
+        .product-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        .badge-sale { position: absolute; top: 25px; left: 25px; background: #FF5252; color: white; font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 20px; z-index: 2; }
+        .product-img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
+        .brand { font-size: 12px; color: var(--text-gray); font-weight: 600; display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+        .brand .fa-check-circle { color: #4CAF50; font-size: 11px; }
+        .product-title { font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; height: 42px; overflow: hidden; }
+        .rating { color: #FFC107; font-size: 12px; margin-bottom: 10px; }
+        .rating span { color: var(--text-gray); margin-left: 5px; font-weight: 500; }
+        .price-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .current-price { font-size: 18px; font-weight: 800; }
+        .old-price { font-size: 14px; color: #AAA; text-decoration: line-through; }
+        .add-to-cart { width: 100%; border: 2px solid var(--primary); background: transparent; color: var(--primary); padding: 10px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .add-to-cart:hover { background: var(--primary); color: white; }
+
+        /* --- 5. Trusted Sellers --- */
+        .sellers-section { background: #F4F2EE; padding: 80px 0; }
+        .text-center { text-align: center; }
+        .sellers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+        .seller-card { background: var(--white); padding: 40px 20px; border-radius: 30px; text-align: center; }
+        .seller-icon-wrapper { width: 70px; height: 70px; background: #F5F5F5; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 26px; color: #999; margin: 0 auto 20px; }
+        .seller-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .tags { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .tag { background: #F0F0F0; font-size: 11px; font-weight: 600; color: #555; padding: 5px 12px; border-radius: 20px; }
+        .seller-info { font-size: 13px; color: var(--text-gray); font-weight: 500; margin-bottom: 25px; }
+        .btn-visit { padding: 8px 24px; border: 2px solid #E0E0E0; background: transparent; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+        /* --- 6. Why Us --- */
+        .why-us-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 40px; }
+        .feature-card { text-align: center; }
+        .feat-icon { width: 60px; height: 60px; background: #FFF0EA; color: var(--primary); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto 20px; }
+        .feature-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .feature-card p { font-size: 13px; color: var(--text-gray); }
+
+        /* --- 7. Footer CTA --- */
+        .footer-cta { background: #322C29; padding: 80px 0; text-align: center; color: white; margin-top: 60px; }
+        .footer-cta h2 { font-size: 38px; font-weight: 800; margin-bottom: 15px; }
+        .footer-cta p { color: #AFAFAF; font-size: 16px; margin-bottom: 35px; max-width: 600px; margin-inline: auto; }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-flex">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                BabiMarket
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Products</a>
+                <a href="#">Categories</a>
+                <a href="#">Sellers</a>
+            </nav>
+            <div class="nav-icons">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge">3</span>
+                </div>
+                <i class="fa-regular fa-circle-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-parents">
+                    <div class="avatars">
+                        <img src="https://i.pravatar.cc/100?img=1" alt="parent">
+                        <img src="https://i.pravatar.cc/100?img=5" alt="parent">
+                        <img src="https://i.pravatar.cc/100?img=9" alt="parent">
+                    </div>
+                    <span class="parents-text">+2.4K happy parents</span>
+                </div>
+                <h1>Everything Your <br><span>Little One Needs</span></h1>
+                <p>Curated marketplace connecting parents with trusted sellers offering premium baby products.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary">Start Shopping <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn btn-outline">Become a Seller</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><h3>500+</h3><span>Sellers</span></div>
+                    <div class="stat"><h3>10K+</h3><span>Products</span></div>
+                    <div class="stat"><h3>50K+</h3><span>Orders</span></div>
+                </div>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=800&auto=format&fit=crop" alt="Mother and Baby" class="hero-img">
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <span class="sub-title">/ BROWSE</span>
+            <h2 class="main-title">Shop by Category</h2>
+            <div class="categories-grid">
+                <div class="cat-card"><i class="fa-solid fa-shirt cat-icon" style="color: #FF7043;"></i><h4>Baby Clothing</h4><p>245 items</p></div>
+                <div class="cat-card"><i class="fa-solid fa-puzzle-piece cat-icon" style="color: #FFA726;"></i><h4>Toys & Games</h4><p>189 items</p></div>
+                <div class="cat-card"><i class="fa-solid fa-baby-carriage cat-icon" style="color: #26A69A;"></i><h4>Feeding</h4><p>134 items</p></div>
+                <div class="cat-card"><i class="fa-solid fa-house cat-icon" style="color: #AB47BC;"></i><h4>Nursery</h4><p>98 items</p></div>
+                <div class="cat-card"><i class="fa-solid fa-heart-pulse cat-icon" style="color: #EC407A;"></i><h4>Health & Safety</h4><p>76 items</p></div>
+                <div class="cat-card"><i class="fa-solid fa-car-side cat-icon" style="color: #29B6F6;"></i><h4>Strollers</h4><p>52 items</p></div>
+            </div>
+        </section>
+
+        <section class="section-padding" style="padding-top: 0;">
+            <div class="section-header">
+                <div>
+                    <span class="sub-title">/ TRENDING</span>
+                    <h2 class="main-title" style="margin-bottom: 0;">Popular This Week</h2>
+                </div>
+                <a href="#" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <span class="badge-sale">Sale</span>
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=400&auto=format&fit=crop" class="product-img" alt="Onesie">
+                    <div class="brand">TinyThreads <i class="fa-solid fa-check-circle"></i></div>
+                    <h3 class="product-title">Organic Cotton Baby Onesie Set</h3>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span>(312)</span></div>
+                    <div class="price-wrapper"><span class="current-price">$24.99</span><span class="old-price">$34.99</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1515488764276-beab7607c1e6?q=80&w=400&auto=format&fit=crop" class="product-img" alt="Toy">
+                    <div class="brand">Woodland <i class="fa-solid fa-check-circle"></i></div>
+                    <h3 class="product-title">Wooden Rainbow Stacking Toy</h3>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star-half-stroke"></i><span>(528)</span></div>
+                    <div class="price-wrapper"><span class="current-price">$32.50</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <span class="badge-sale">Sale</span>
+                    <img src="https://images.unsplash.com/photo-1559599141-383994cd31ff?q=80&w=400&auto=format&fit=crop" class="product-img" alt="Bottle">
+                    <div class="brand">NurtureNest <i class="fa-solid fa-check-circle"></i></div>
+                    <h3 class="product-title">Anti-Colic Baby Bottle Set</h3>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span>(204)</span></div>
+                    <div class="price-wrapper"><span class="current-price">$28.00</span><span class="old-price">$35.00</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1595867818082-083862f3d630?q=80&w=400&auto=format&fit=crop" class="product-img" alt="Crib">
+                    <div class="brand">DreamCrib <i class="fa-solid fa-check-circle"></i></div>
+                    <h3 class="product-title">Convertible Baby Crib</h3>
+                    <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span>(89)</span></div>
+                    <div class="price-wrapper"><span class="current-price">$299.00</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="sellers-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="sub-title">/ TRUSTED PARTNERS</span>
+                <h2 class="main-title" style="margin-bottom: 10px;">Featured Sellers</h2>
+                <p style="color: var(--text-gray); font-size: 15px;">Trusted partners bringing quality to your door</p>
+            </div>
+            
+            <div class="sellers-grid">
+                <div class="seller-card">
+                    <div class="seller-icon-wrapper"><i class="fa-solid fa-store"></i></div>
+                    <h3>TinyThreads</h3>
+                    <div class="tags"><span class="tag">Baby Clothing</span><span class="tag">Accessories</span></div>
+                    <div class="seller-info">124+ Products &nbsp;|&nbsp; ⭐ 4.9</div>
+                    <button class="btn-visit">Visit Store</button>
+                </div>
+                <div class="seller-card">
+                    <div class="seller-icon-wrapper"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <h3>WoodlandWonders</h3>
+                    <div class="tags"><span class="tag">Toys & Games</span><span class="tag">Educational</span></div>
+                    <div class="seller-info">87+ Products &nbsp;|&nbsp; ⭐ 4.8</div>
+                    <button class="btn-visit">Visit Store</button>
+                </div>
+                <div class="seller-card">
+                    <div class="seller-icon-wrapper"><i class="fa-solid fa-couch"></i></div>
+                    <h3>DreamNursery</h3>
+                    <div class="tags"><span class="tag">Nursery</span><span class="tag">Furniture</span></div>
+                    <div class="seller-info">56+ Products &nbsp;|&nbsp; ⭐ 4.7</div>
+                    <button class="btn-visit">Visit Store</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding text-center">
+        <div class="container">
+            <span class="sub-title">/ WHY US</span>
+            <h2 class="main-title">Why Parents Love BabiMarket</h2>
+            
+            <div class="why-us-grid">
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h4>Safe & Trusted</h4>
+                    <p>Verified baby safety standards</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h4>Fast Delivery</h4>
+                    <p>Free shipping on orders over $50</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                    <h4>Easy Returns</h4>
+                    <p>30-day hassle-free policy</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="fa-solid fa-headset"></i></div>
+                    <h4>24/7 Support</h4>
+                    <p>Always here to help you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-cta">
+        <div class="container">
+            <h2>Ready to Start Selling?</h2>
+            <p>Join 500+ sellers on BabiMarket and reach thousands of parents looking for quality.</p>
+            <button class="btn btn-primary">Become a Seller <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </footer>
+
+</body>
+</html>

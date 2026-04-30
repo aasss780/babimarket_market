@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabiMarket - Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #FF6F43;
+            --primary-light: #FFF0EB;
+            --bg-color: #FBF9F6;
+            --text-dark: #1A1A1A;
+            --text-gray: #7A7A7A;
+            --white: #FFFFFF;
+            --border-color: #EFEFEF;
+            --success: #4CAF50;
+            --info: #2196F3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* --- Navbar --- */
+        .navbar { background: var(--white); padding: 20px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; color: #1E3A34; }
+        .logo-icon { background: #4CAF50; color: white; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 8px; font-size: 16px; font-weight: bold; }
+        .nav-icons { display: flex; gap: 25px; font-size: 18px; color: #333; align-items: center; }
+        
+        /* Notification Bell Badge */
+        .notif-icon { position: relative; cursor: pointer; color: var(--primary); }
+        .notif-badge { position: absolute; top: -6px; right: -8px; background: #FF5252; color: white; font-size: 10px; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--white); }
+
+        /* --- Notifications Layout --- */
+        .notifications-wrapper { max-width: 800px; margin: 40px auto; min-height: 60vh; }
+        
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .page-header h1 { font-size: 28px; font-weight: 800; }
+        .mark-read-btn { background: none; border: none; color: var(--primary); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .mark-read-btn:hover { color: #E65A2B; text-decoration: underline; }
+
+        /* Tabs */
+        .notif-tabs { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 5px; }
+        .tab-btn { padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--white); font-size: 14px; font-weight: 600; color: var(--text-gray); cursor: pointer; transition: 0.3s; white-space: nowrap; }
+        .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .tab-btn.active { background: var(--text-dark); color: var(--white); border-color: var(--text-dark); }
+        .tab-btn.active:hover { color: var(--white); }
+
+        /* Notification List */
+        .notif-list { display: flex; flex-direction: column; gap: 15px; }
+
+        /* Notification Card */
+        .notif-card { background: var(--white); border-radius: 16px; padding: 20px; display: flex; gap: 20px; align-items: flex-start; transition: 0.3s; border: 1px solid var(--border-color); position: relative; overflow: hidden; cursor: pointer; }
+        .notif-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.03); border-color: #E2E2E2; }
+        
+        /* Unread State */
+        .notif-card.unread { background: var(--primary-light); border-left: 4px solid var(--primary); border-top: 1px solid transparent; border-right: 1px solid transparent; border-bottom: 1px solid transparent; }
+        .notif-card.unread .notif-dot { display: block; }
+        
+        .notif-dot { display: none; position: absolute; top: 25px; right: 20px; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; }
+
+        /* Icons */
+        .icon-box { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0; }
+        .icon-box.order { background: #E8F5E9; color: var(--success); }
+        .icon-box.promo { background: #FFF3E0; color: var(--primary); }
+        .icon-box.system { background: #E3F2FD; color: var(--info); }
+
+        /* Content */
+        .notif-content { flex: 1; padding-right: 20px; }
+        .notif-title { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 5px; }
+        .notif-desc { font-size: 13px; color: var(--text-gray); line-height: 1.5; margin-bottom: 8px; }
+        .notif-time { font-size: 12px; font-weight: 500; color: #999; display: flex; align-items: center; gap: 5px; }
+
+        /* Action Buttons inside Notif */
+        .notif-action { margin-top: 10px; }
+        .btn-sm { display: inline-block; padding: 8px 15px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.3s; }
+        .btn-sm.primary { background: var(--primary); color: white; }
+        .btn-sm.primary:hover { background: #E65A2B; }
+        .btn-sm.outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
+        .btn-sm.outline:hover { border-color: var(--text-dark); }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 60px 20px; display: none; }
+        .empty-state i { font-size: 60px; color: #E0E0E0; margin-bottom: 15px; }
+        .empty-state h3 { font-size: 18px; color: var(--text-dark); margin-bottom: 5px; }
+        .empty-state p { font-size: 14px; color: var(--text-gray); }
+
+        @media (max-width: 768px) {
+            .notif-card { padding: 15px; gap: 15px; }
+            .icon-box { width: 40px; height: 40px; font-size: 16px; }
+            .notif-title { font-size: 14px; }
+            .page-header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-flex">
+            <a href="#" class="logo">
+                <div class="logo-icon">B</div>
+                BabiMarket
+            </a>
+            <div class="nav-icons">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="notif-icon">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-badge">2</span>
+                </div>
+                <i class="fa-regular fa-circle-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="notifications-wrapper">
+            
+            <div class="page-header">
+                <h1>Notifications</h1>
+                <button class="mark-read-btn" onclick="markAllAsRead()">
+                    <i class="fa-solid fa-check-double"></i> Mark all as read
+                </button>
+            </div>
+
+            <div class="notif-tabs">
+                <button class="tab-btn active" onclick="filterNotifs('all', this)">All</button>
+                <button class="tab-btn" onclick="filterNotifs('unread', this)">Unread</button>
+                <button class="tab-btn" onclick="filterNotifs('order', this)">Orders</button>
+                <button class="tab-btn" onclick="filterNotifs('promo', this)">Promotions</button>
+            </div>
+
+            <div class="notif-list" id="notifList">
+                
+                <div class="notif-card unread" data-type="order">
+                    <div class="notif-dot"></div>
+                    <div class="icon-box order"><i class="fa-solid fa-box-open"></i></div>
+                    <div class="notif-content">
+                        <h3 class="notif-title">Order Delivered Successfully! 🎉</h3>
+                        <p class="notif-desc">Your order <strong>#ORD-001</strong> (Organic Cotton Baby Onesie) has been delivered. We hope you and your baby love it!</p>
+                        <div class="notif-time"><i class="fa-regular fa-clock"></i> 2 hours ago</div>
+                        <div class="notif-action">
+                            <a href="#" class="btn-sm primary">Leave a Review</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notif-card unread" data-type="promo">
+                    <div class="notif-dot"></div>
+                    <div class="icon-box promo"><i class="fa-solid fa-tag"></i></div>
+                    <div class="notif-content">
+                        <h3 class="notif-title">Flash Sale: 20% OFF Winter Collection</h3>
+                        <p class="notif-desc">Keep your little one warm! Use code <strong>WINTER20</strong> at checkout to get 20% off all winter clothes and blankets.</p>
+                        <div class="notif-time"><i class="fa-regular fa-clock"></i> 5 hours ago</div>
+                        <div class="notif-action">
+                            <a href="#" class="btn-sm outline">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notif-card" data-type="system">
+                    <div class="notif-dot"></div>
+                    <div class="icon-box system"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="notif-content">
+                        <h3 class="notif-title">Password Changed Successfully</h3>
+                        <p class="notif-desc">Your account password was updated successfully. If this wasn't you, please contact support immediately.</p>
+                        <div class="notif-time"><i class="fa-regular fa-clock"></i> Yesterday</div>
+                    </div>
+                </div>
+
+                <div class="notif-card" data-type="order">
+                    <div class="notif-dot"></div>
+                    <div class="icon-box order"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div class="notif-content">
+                        <h3 class="notif-title">Order Shipped</h3>
+                        <p class="notif-desc">Great news! Your order <strong>#ORD-089</strong> is on its way to you. Track your shipment to know exactly when it arrives.</p>
+                        <div class="notif-time"><i class="fa-regular fa-clock"></i> 2 days ago</div>
+                        <div class="notif-action">
+                            <a href="#" class="btn-sm outline">Track Order</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="empty-state" id="emptyState">
+                <i class="fa-regular fa-bell-slash"></i>
+                <h3>No notifications here</h3>
+                <p>You're all caught up! Check back later for updates.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function filterNotifs(filter, btnElement) {
+            // تحديث تصميم الأزرار (التبويبات)
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const cards = document.querySelectorAll('.notif-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                // الفلترة حسب النوع أو حالة القراءة
+                if (filter === 'all') {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else if (filter === 'unread') {
+                    if (card.classList.contains('unread')) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                } else {
+                    if (card.dataset.type === filter) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+
+            // إظهار وإخفاء رسالة "لا يوجد إشعارات"
+            const emptyState = document.getElementById('emptyState');
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+
+        function markAllAsRead() {
+            const unreadCards = document.querySelectorAll('.notif-card.unread');
+            unreadCards.forEach(card => {
+                card.classList.remove('unread');
+            });
+
+            // تصفير عداد الإشعارات في الهيدر
+            const badge = document.querySelector('.notif-badge');
+            if(badge) badge.style.display = 'none';
+
+            // إذا كنا في تبويب "غير المقروءة"، نحدث العرض ليظهر فارغاً
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab && activeTab.textContent === 'Unread') {
+                filterNotifs('unread', activeTab);
+            }
+        }
+    </script>
+
+</body>
+</html>

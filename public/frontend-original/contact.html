@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BabiMarket - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #FF6F43; --text-dark: #1A1A1A; --border-color: #EFEFEF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #FBF9F6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .contact-wrapper { background: #fff; width: 100%; max-width: 900px; border-radius: 20px; display: flex; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .contact-info { background: var(--primary); color: white; padding: 50px; width: 40%; }
+        .contact-info h2 { font-size: 28px; margin-bottom: 20px; }
+        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; font-size: 15px; }
+        .info-item i { font-size: 20px; }
+        
+        .contact-form { padding: 50px; width: 60%; }
+        .contact-form h2 { font-size: 28px; color: var(--text-dark); margin-bottom: 20px; }
+        .input-group { margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 10px; background: #F9F9F9; outline: none; font-family: inherit; }
+        textarea { height: 120px; resize: none; }
+        input:focus, textarea:focus { border-color: var(--primary); }
+        .submit-btn { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; }
+        .submit-btn:hover { background: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="contact-wrapper">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p style="margin-bottom: 40px; opacity: 0.9;">We'd love to hear from you. Our friendly team is always here to chat.</p>
+            <div class="info-item"><i class="fa-solid fa-location-dot"></i> 123 Baby Street, NY 10001</div>
+            <div class="info-item"><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</div>
+            <div class="info-item"><i class="fa-solid fa-envelope"></i> support@babimarket.com</div>
+        </div>
+        <div class="contact-form">
+            <h2>Send us a Message</h2>
+            <form onsubmit="event.preventDefault(); alert('Message sent!');">
+                <div class="input-group"><input type="text" placeholder="Your Name" required></div>
+                <div class="input-group"><input type="email" placeholder="Email Address" required></div>
+                <div class="input-group"><textarea placeholder="How can we help you?" required></textarea></div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
